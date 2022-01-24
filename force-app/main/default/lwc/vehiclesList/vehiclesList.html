@@ -1,0 +1,33 @@
+<template>
+
+    <!-- Defines structure and logic of the parent card, which will contain the vehicle list -->
+    <lightning-card  title="Vehicles">
+        <lightning-button label="New" slot="actions" onclick={handleNewVehicle}></lightning-button>
+    
+        <div class="wrap-vehicle-card" if:true={showVehiclesForm}>
+            <lightning-record-form
+                object-api-name={objName}
+                fields={fields}
+                onsuccess={handleSuccess}
+                onsubmit={handleSubmit}
+            >
+            </lightning-record-form>
+        </div>
+        
+        <!-- Displays vehicle list on cards with the most relevant information--> 
+        <div class="wrap-vehicle-card" if:true={vehiclesList}>
+            <template for:each={vehiclesList} for:item="vehicle">
+                <lightning-card key={vehicle.Id} title={vehicle.Model__c}>
+                    <div class="vehicle-card-body">
+                        <p>Name: {vehicle.Name}</p>
+                        <p>Type: {vehicle.Type__c}</p>
+                        <p>Levelers: {vehicle.Levelers__c}</p>
+                        <p>Max Passengers: {vehicle.Recommended_Passengers__c}</p>
+                    </div>
+                </lightning-card>
+            </template>
+        </div>
+        
+    </lightning-card>
+
+</template>
